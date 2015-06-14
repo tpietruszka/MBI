@@ -11,7 +11,7 @@ if(args.model_file_path):
 else:
     model = ViterbiDecoder()
     print("Enter the path to save the model (leave empty to skip saving): ")
-    model_save_path = sys.stdin.readline().rstrip('\n')
+    model_save_path = sys.stdin.readline().strip()
     if(len(model_save_path) > 0):
         model.save_model(model_save_path)
 

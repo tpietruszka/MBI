@@ -47,10 +47,10 @@ class ViterbiDecoder(object):
             display_prompts = True
         
         if display_prompts: print("Total number of possible states: ") 
-        S = int(source.readline())
+        S = int(source.readline().strip())
         
         if display_prompts: print("Total number of possible observed values: ")
-        O = int(source.readline())
+        O = int(source.readline().strip())
         
         if display_prompts: print("Possibilities of initial states (in one line): ")
         p_initial = cls.read_number_line(source)
@@ -74,7 +74,7 @@ class ViterbiDecoder(object):
     def read_number_line(source, type_cast_function=float, normalize = True):
         """ Reads one line of input, returns a 1d numpy array with its values. Normalizes a line to 1, unless spcified otherwise """
         line = source.readline()
-        array = np.array([type_cast_function(number) for number in line.split(' ')])
+        array = np.array([type_cast_function(number) for number in line.strip().split(' ')])
         if normalize: array = array / array.sum()
         return array
     
