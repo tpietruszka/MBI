@@ -11,18 +11,18 @@
 
 ### Instructions:
 #### main.py - Usage: 
-- ./main.py [model_file_name]
+- ./main.py [model_file_name] [--quiet]
 
 Then a sequence of observations should be provided in one line (to standard input). Observations are sequentially numbered, starting at 0
 If no model file was given, user will be prompted to enter all the model parameters manually (and choose a filename to save it).
 
 #### viterbi_decode.R - Usage: 
-- Rscript viterbi_decode.R [model_file_name]
+- Rscript viterbi_decode.R [model_file_name]  [--quiet]
 
 Observations loaded the same way
 
 #### generate_sequence.R - Usage: 
-- Rscript generate_sequence.R [model_file_name] [sequence_length] 
+- Rscript generate_sequence.R [model_file_name] [sequence_length]  [--quiet]
 
 Outputs a sequence of observations and a sequence of underlying hidden states
 

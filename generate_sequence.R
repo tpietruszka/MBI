@@ -9,7 +9,7 @@ sequence_length <- args[2]
 quiet <- args[3] # no user prompts - for batch processing
 
 if(is.na(model_file) || is.na(sequence_length)) {
-  stop("Usage: Rscript generate_sequence.R [model_file] [sequence_length]")
+  stop("Usage: Rscript generate_sequence.R [model_file] [sequence_length] [--quiet")
 }
 sequence_length <- strtoi(sequence_length, 10)
 

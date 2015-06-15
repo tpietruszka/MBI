@@ -8,7 +8,7 @@ args <- commandArgs(trailingOnly = TRUE)
 model_file <- args[1]
 quiet <- args[2]
 if(is.na(model_file)) { # if no model file given, defaulting to the example
-  model_file <- "./bigger_model.csv"
+  stop("Usage: Rscript viterbi_decode.R [model_file] [--quiet]")
 }
 
 only_results = FALSE # skip prompts for batch processing
