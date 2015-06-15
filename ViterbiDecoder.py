@@ -25,6 +25,12 @@ class ViterbiDecoder(object):
         self.num_states = p_initial.shape[0]
         self.num_observations = p_observation.shape[0]
         
+        # log probabilities for numerical reasons (efficiency, avoiding underflow)
+        # adding epsilon to avoid exceptions when taking log(0) 
+        self.log_initial = np.log(p_initial + sys.float_info.epsilon)
+        self.log_transition = np.log(p_transition + sys.float_info.epsilon)
+        self.log_observation = np.log(p_observation + sys.float_info.epsilon)
+        
         assert self.p_transition.shape[0] == self.p_transition.shape[1] == self.num_states
         assert self.p_observation.shape[0] == self.num_states # TODO: raise exceptions instead
 
@@ -111,12 +117,12 @@ class ViterbiDecoder(object):
         """
         viterbi = np.zeros((self.num_states, len(observations))) # probabilities of the most probable sequence leading to a state
         backpointers = np.zeros((self.num_states, len(observations))) # zero-indexed numbers of states chosen in each step
-        viterbi[:, 0] = self.p_observation[:, observations[0]] * self.p_initial
+        viterbi[:, 0] = self.log_observation[:, observations[0]] + self.log_initial
         backpointers[:, 0] = np.argmax(viterbi[:, 0])
         
         for t in range(1, len(observations)):
             for s in range(0, self.num_states): # TODO: re-write this loop as matrix operations?
-                possibilities = viterbi[:, t-1] * self.p_transition[:, s] * self.p_observation[s, observations[t]]
+                possibilities = viterbi[:, t-1] + self.log_transition[:, s] + self.log_observation[s, observations[t]]
                 viterbi[s, t] = np.max(possibilities)
                 backpointers[s, t] = np.argmax(possibilities)
         path = np.zeros(len(observations))
