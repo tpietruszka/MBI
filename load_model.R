@@ -1,9 +1,9 @@
 # loads a hidden markov model from a file
 
-if(!require('HMM')) {
+if(!require('HMM', quietly=TRUE)) {
   install.packages('HMM')
 }
-library('HMM')
+library('HMM', quietly=TRUE)
 
 load_model <- function(model_file) {
   model_data <- read.delim(model_file, header=FALSE, sep=' ')
